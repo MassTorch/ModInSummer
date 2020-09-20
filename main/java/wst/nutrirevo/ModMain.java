@@ -7,6 +7,9 @@ import org.apache.logging.log4j.Logger;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.Item.Properties;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
@@ -67,10 +70,15 @@ public class ModMain {
 	    // Event bus for receiving Registry Events)
 	    @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
 	    public static class RegistryEvents {
+	    	private final static Block bckt = new BlockTT();
 	        @SubscribeEvent
 	        public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
-	            // register a new block here
-	            LOGGER.info("HELLO from Register Block");
+	            blockRegistryEvent.getRegistry().register(bckt);
+	        }
+	        
+	        @SubscribeEvent
+	        public static void onItemsRegistry(final RegistryEvent.Register<Item> blockRegistryEvent) {
+	            blockRegistryEvent.getRegistry().register(new BlockItem(bckt,new Properties()).setRegistryName(bckt.getRegistryName()));
 	        }
 	    }
 }

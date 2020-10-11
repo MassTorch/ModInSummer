@@ -20,11 +20,13 @@ import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import wst.nutrirevo.system.BlockManager;
 
 @Mod("nutrirevo")
 public class ModMain {
 	
 	private static final Logger LOGGER = LogManager.getLogger();
+	
 	
 	public ModMain(){
 		FMLJavaModLoadingContext fmlloadingcontext = FMLJavaModLoadingContext.get();
@@ -74,11 +76,12 @@ public class ModMain {
 	        @SubscribeEvent
 	        public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
 	            blockRegistryEvent.getRegistry().register(bckt);
+	            BlockManager.get().RegisterAllBlock(blockRegistryEvent);
 	        }
 	        
 	        @SubscribeEvent
 	        public static void onItemsRegistry(final RegistryEvent.Register<Item> blockRegistryEvent) {
-	            blockRegistryEvent.getRegistry().register(new BlockItem(bckt,new Properties()).setRegistryName(bckt.getRegistryName()));
+	        	
 	        }
 	    }
 }

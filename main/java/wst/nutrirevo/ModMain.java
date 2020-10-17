@@ -7,6 +7,8 @@ import org.apache.logging.log4j.Logger;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.Properties;
@@ -21,10 +23,11 @@ import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import wst.nutrirevo.system.BlockManager;
+import wst.nutrurevo.item.blood.BloodVial;
 
-@Mod("nutrirevo")
+@Mod(ModMain.MODID)
 public class ModMain {
-	
+	public static final String MODID = "nutrirevo";
 	private static final Logger LOGGER = LogManager.getLogger();
 	
 	
@@ -75,13 +78,16 @@ public class ModMain {
 	    	private final static Block bckt = new BlockTT();
 	        @SubscribeEvent
 	        public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
-	            blockRegistryEvent.getRegistry().register(bckt);
-	            BlockManager.get().RegisterAllBlock(blockRegistryEvent);
+	            //blockRegistryEvent.getRegistry().register(bckt);
+	            //BlockManager.get().RegisterAllBlock(blockRegistryEvent);
 	        }
 	        
 	        @SubscribeEvent
 	        public static void onItemsRegistry(final RegistryEvent.Register<Item> blockRegistryEvent) {
-	        	
+	        	Item bloodvial = new BloodVial().setRegistryName("bloodvial");
+	        	blockRegistryEvent.getRegistry().register(bloodvial);
+	        	Minecraft.getInstance().getItemRenderer().getItemModelMesher().register(bloodvial, new ModelResourceLocation(MODID + "bloodvial"));
 	        }
+	        
 	    }
 }
